@@ -1,7 +1,8 @@
-const getStudents = async () => {
-  const props = await fetch('/student')
+const getStudents = async (name) => {
+  const res = await fetch(`/student?name=${name}`)
   // console.log(props)
-  return props.json()
+  const { data, message } = await res.json()
+  return data
 }
 
 export default { getStudents }

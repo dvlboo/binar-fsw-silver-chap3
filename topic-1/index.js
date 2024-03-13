@@ -14,10 +14,10 @@ app.get('/student', (req, res) => {
   
   const {name, city, province} = req.query
   // console.log(req.query.province)
-  let dataStudent = [...student]
-  // console.log(dataStudent)
+  let data = [...student]
+  // console.log(data)
   
-  dataStudent = dataStudent.filter((student) => {
+  data = data.filter((student) => {
     let filteredStatus = true
 
     if (name) {
@@ -47,7 +47,7 @@ app.get('/student', (req, res) => {
 
   // standart handling data
   const response = {
-    dataStudent,
+    data,
     message: null,
   }
   
@@ -60,17 +60,17 @@ app.get('/students/:id', (req, res) => {
   // console.log(req.params)
   const { id } = req.params
 
-  let dataStudent = [...student]
+  let data = [...student]
 
-  dataStudent = dataStudent.filter(student => student.id == id)
+  data = data.filter(student => student.id == id)
   
   // standart handling data
   const response = {
-    data: dataStudent[0],
+    data: data[0],
     message: null,
   }
 
-  dataStudent.length == 0 
+  data.length == 0 
     ? res.status(404).json({message : `Student with id ${id} is Not Found!`}) 
     : res.status(200).json(response)
   console.log(response)

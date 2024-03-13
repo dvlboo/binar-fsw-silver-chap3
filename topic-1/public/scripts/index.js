@@ -1,13 +1,16 @@
 import student from "./students.js"
 
 const studentCard = document.getElementById('student-card')
+const searchInput = document.getElementById('search-input')
+const searchSubmit = document.getElementById('search-submit')
 
-const getStudents = async () => {
-  const studentData = await student.getStudents()
-  console.log(studentData)
+
+const getStudents = async (name) => {
+  const data = await student.getStudents(name)
+  console.log(data)
 
   let studentWithCard = ""
-    studentData.map((student) => {
+    data.map((student) => {
       studentWithCard += `<div class="col-md-4">
           <div class="card">
             <div class="card-body">
@@ -21,4 +24,11 @@ const getStudents = async () => {
   studentCard.innerHTML = studentWithCard
 }
 
-getStudents()
+searchSubmit.addEventListener('submit', (event) => {
+  event.preventDefault()
+
+  const name = searchInput.value
+  getStudents(name)
+})
+
+getStudents("")
