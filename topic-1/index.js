@@ -1,135 +1,17 @@
 // const fs = require('fs')
 const express = require('express')
+const student = require('./data/students.json')
+const route = require('./routes')
 
 
 const app = express()
 const port = 3000
-const student = require('./data/students.json')
 
-app.use(express.static('public'))
 
 // Enable request body (json)
 app.use(express.json())
-
-// by query
-app.get('/student', (req, res) => {
-  
-  const {name, city, province} = req.query
-  // console.log(req.query.province)
-  let data = [...student]
-  // console.log(data)
-  
-  data = data.filter((student) => {
-    let filteredStatus = true
-
-    if (name) {
-      filteredStatus = 
-        filteredStatus && student.name
-          .toLowerCase()
-          .includes(name?.toLowerCase()) //tanda "?" => untuk skipping data jika undefine
-    }
-
-    if (city) {
-      filteredStatus = 
-        filteredStatus && student.address.city
-          .toLowerCase()
-          .includes(city?.toLowerCase())
-    }
-
-    if (province) {
-      filteredStatus = 
-        filteredStatus && student.address.province
-          .toLowerCase()
-          .includes(province?.toLowerCase())
-    }
-
-    return filteredStatus
-  
-  })
-
-  // standart handling data
-  const response = {
-    data,
-    message: null,
-  }
-  
-  res.status(200).json(response)
-})
-
-
-// search by params
-app.get('/students/:id', (req, res) => {
-  // console.log(req.params)
-  const { id } = req.params
-
-  let data = [...student]
-
-  data = data.filter(student => student.id == id)
-  
-  // standart handling data
-  const response = {
-    data: data[0],
-    message: null,
-  }
-
-  data.length == 0 
-    ? res.status(404).json({message : `Student with id ${id} is Not Found!`}) 
-    : res.status(200).json(response)
-  console.log(response)
-})
-
-// Post
-app.post("/students", (req, res) => {
-
-  const { name, address } = req.body
-
-  if (!name || name == "") {
-    return res.status(400).json({
-      data : null,
-      message : "Name must be filled"
-    })
-  }
-  if (!address) {
-    return res.status(400).json({
-      data : null,
-      message : "Address must be filled"
-    })
-  }
-
-  const { city, province } = address
-
-  if (!city || city == "") {
-    return res.status(400).json({
-      data : null,
-      message : "City must be filled"
-    })
-  }
-  if (!province || province == "") {
-    return res.status(400).json({
-      data : null,
-      message : "Province must be filled"
-    })
-  }
-
-  // console.log(req.body)
-  
-  const response = {
-    data : null,
-    message : null
-  }
-
-  // Process insert data
-  // get last id 
-  const lastStudent = student[student.length - 1]
-  req.body = {
-    id : lastStudent.id + 1,
-    ...req.body
-  }
-
-  student.push(req.body)
-
-  res.status(201).json(response)
-})
+app.use(express.static('public'))
+app.use("/", route)
 
 // API to Update (PUT the Data)
 app.put("/students/:id", (req, res) => {
