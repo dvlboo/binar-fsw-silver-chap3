@@ -15,7 +15,7 @@ exports.postStudent = (payload) => {
   return data
 }
 
-exports.putStudent = (id) => {
-  const data = studentRepo.putStudent(id)
+exports.editStudent = (id) => {
+  const data = studentRepo.editStudent(id)
   return data
 }
