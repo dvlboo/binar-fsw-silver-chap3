@@ -1,3 +1,4 @@
+const { response } = require("express");
 const studentUsecase = require("../usecase/student");
 
 exports.getStudents = (req, res) => {
@@ -135,4 +136,24 @@ exports.patchStudent = (req, res) => {
 
   res.status(200).json(response)
 
+}
+
+exports.delStudent = (req, res) => {
+  const { id } = req.params
+
+  const data = studentUsecase.delStudent(id)
+  
+  if (!data) {
+    return res.status(404).json({
+      data: null,
+      message: `Student with id ${id} is not found!`,
+    });
+  }
+
+  const response = {
+    data,
+    message: "Student deleted successfully"
+  }
+
+  res.status(202).json(response)
 }

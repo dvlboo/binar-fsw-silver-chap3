@@ -8,6 +8,7 @@ router.get("/:id", studentController.getStudent)
 router.post("/", studentController.postStudent)
 router.put("/:id", studentController.putStudent)
 router.patch("/:id", studentController.patchStudent)
+router.delete("/:id", studentController.delStudent)
 
 
 module.exports = router
