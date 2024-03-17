@@ -55,7 +55,7 @@ exports.postStudent = (payload) => {
   return payload
 }
 
-exports.putStudent = (id) => {
+exports.editStudent = (id) => {
   const data = students.filter((student) => student.id == id)
   return data[0]
 }

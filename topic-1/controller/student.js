@@ -77,7 +77,7 @@ exports.putStudent = (req, res) => {
   const { id } = req.params
   const { name, address } = req.body
 
-  const data = studentUsecase.putStudent(id)
+  const data = studentUsecase.editStudent(id)
 
   if (!data) {
     return res.status(404).json({ message: `Student with id ${id} is Not Found!` })
@@ -102,4 +102,37 @@ exports.putStudent = (req, res) => {
   }
 
   res.status(200).json(response)
+}
+
+exports.patchStudent = (req, res) => {
+  const { id } = req.params
+  const { name, address } = req.body
+
+  const data = studentUsecase.editStudent(id)
+
+  if (!data) {
+    return res.status(404).json({ message: `Student with id ${id} is Not Found!` })
+  }
+
+  if (name) {
+    data.name = name
+  }
+
+  if (address) {
+    const { city, province } = address
+    if (city) {
+      data.address.city = city
+    }
+    if (province) {
+      data.address.province = province
+    }
+  }
+
+  const response = {
+    data,
+    message: "Student data updated successfully",
+  }
+
+  res.status(200).json(response)
+
 }
