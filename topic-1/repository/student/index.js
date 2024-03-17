@@ -59,3 +59,12 @@ exports.editStudent = (id) => {
   const data = students.filter((student) => student.id == id)
   return data[0]
 }
+
+exports.delStudent = (id) => {
+  const index = students.findIndex((student) => student.id == id)
+  if (index === -1) {
+    return null
+  }
+  const data = students.splice(index, 1)[0]
+  return data
+}

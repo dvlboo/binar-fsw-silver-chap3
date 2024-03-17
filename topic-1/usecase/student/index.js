@@ -19,3 +19,11 @@ exports.editStudent = (id) => {
   const data = studentRepo.editStudent(id)
   return data
 }
+
+exports.delStudent = (id) => {
+  const data = studentRepo.delStudent(id)
+  if (!data) {
+    return null
+  }
+  return data
+}
