@@ -54,3 +54,8 @@ exports.postStudent = (payload) => {
 
   return payload
 }
+
+exports.putStudent = (id) => {
+  const data = students.filter((student) => student.id == id)
+  return data[0]
+}

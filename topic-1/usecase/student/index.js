@@ -14,3 +14,8 @@ exports.postStudent = (payload) => {
   const data = studentRepo.postStudent(payload)
   return data
 }
+
+exports.putStudent = (id) => {
+  const data = studentRepo.putStudent(id)
+  return data
+}

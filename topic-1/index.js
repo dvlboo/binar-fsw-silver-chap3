@@ -14,36 +14,36 @@ app.use(express.static('public'))
 app.use("/", route)
 
 // API to Update (PUT the Data)
-app.put("/students/:id", (req, res) => {
-  const { id } = req.params
-  const { name, address } = req.body
+// app.put("/students/:id", (req, res) => {
+//   const { id } = req.params
+//   const { name, address } = req.body
 
-  const studentId = student.find(student => student.id == id)
+//   const studentId = student.find(student => student.id == id)
 
-  if (!studentId) {
-    return res.status(404).json({ message: `Student with id ${id} is Not Found!` })
-  }
+//   if (!studentId) {
+//     return res.status(404).json({ message: `Student with id ${id} is Not Found!` })
+//   }
 
-  if (!name || name === "" || !address) {
-    return res.status(400).json({ message: "Name and Address must be filled" })
-  }
+//   if (!name || name === "" || !address) {
+//     return res.status(400).json({ message: "Name and Address must be filled" })
+//   }
 
-  const { city, province } = address
+//   const { city, province } = address
 
-  if (!city || city === "" || !province || province === "") {
-    return res.status(400).json({ message: "City and Province must be filled" })
-  }
+//   if (!city || city === "" || !province || province === "") {
+//     return res.status(400).json({ message: "City and Province must be filled" })
+//   }
 
-  studentId.name = name
-  studentId.address = address
+//   studentId.name = name
+//   studentId.address = address
 
-  const response = {
-    data: studentId,
-    message: "Student data updated successfully",
-  }
+//   const response = {
+//     data: studentId,
+//     message: "Student data updated successfully",
+//   }
 
-  res.status(200).json(response)
-})
+//   res.status(200).json(response)
+// })
 
 // API to Update (PATCH the Data)
 app.patch("/students/:id", (req, res) => {
@@ -87,33 +87,6 @@ app.delete("/students/:id", (req, res) => {
     return res.status(404).json({ message: `Student with id ${id} is Not Found!` });
   }
   student.splice(index, 1);
-
-  // let studentIndex = -1;
-
-  // student.map((stud, index) => {
-  //   if (stud.id === id) {
-  //     studentIndex = index;
-  //   }
-  // });
-
-  // if (studentIndex === -1) {
-  //   return res.status(404).json({ message: `Student with id ${id} is Not Found!` });
-  // }
-
-  // for (let i = studentIndex; i < student.length - 1; i++) {
-  //   student[i] = student[i + 1];
-  // }
-
-  // student.length--;
-
-  // by filter
-  // const updatedStudents = student.filter(student => student.id !== id);
-
-  // if (updatedStudents.length === student.length) {
-  //   return res.status(404).json({ message: `Student with id ${id} is Not Found!` });
-  // }
-
-  // student = updatedStudents;
 
   const response = {
     data : null,
